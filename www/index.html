@@ -31,6 +31,7 @@
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <p class="event received">Device is Ready</p>
+								<p id="GetData"></p>
             </div>
         </div>
         <script type="text/javascript" src="phonegap.js"></script>
@@ -40,3 +41,10 @@
         </script>
     </body>
 </html>
+<script>
+	$.getJSON('https://ibwt.co.uk/Updates/Rates/BTC/GBP',
+		function(ReturnValues){
+			$("#GetData").html(ReturnValues['Low']);
+		}
+	);
+</script>
