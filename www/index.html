@@ -34,7 +34,7 @@
 								<p id="GetData"></p>
             </div>
         </div>
-        <script type="text/javascript" src="phonegap.js"></script>
+				<script type="text/javascript" src="js/jquery.js"></script>					
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
@@ -42,7 +42,7 @@
     </body>
 </html>
 <script>
-	$.getJSON('https://ibwt.co.uk/Updates/Rates/BTC/GBP',
+	$.getJSON('https://vccouk/Updates/Rates/BTC/GBP',
 		function(ReturnValues){
 			$("#GetData").html(ReturnValues['Low']);
 		}
