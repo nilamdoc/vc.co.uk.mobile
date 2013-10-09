@@ -63,12 +63,12 @@ var app = {
         console.log('Received Event: ' + id);
     },
 
-
-    blog: function(){
-        function getBlogs() {
+	
+    rates: function(){
+        function getRates() {
             var dfd = $.Deferred();
             $.ajax({
-                url: 'http://alexbachuk.com/api/get_recent_posts/',
+                url: 'https://ibwt.co.uk/Updates/Rates/BTC/USD/',
                 type: 'GET',
                 dataType: 'json',
                 success: function(data){
