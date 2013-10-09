@@ -16,6 +16,22 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+Handlebars.registerHelper("debug", function(optionalValue) {
+  console.log("Current Context");
+  console.log("====================");
+  console.log(this);
+ 
+  if (optionalValue) {
+    console.log("Value");
+    console.log("====================");
+    console.log(optionalValue);
+  }
+});
+
+
+
+
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -45,5 +61,67 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+    },
+
+
+    blog: function(){
+        function getBlogs() {
+            var dfd = $.Deferred();
+            $.ajax({
+                url: 'http://alexbachuk.com/api/get_recent_posts/',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data){
+                    var source   = $("#blog-template").html();
+                    var template = Handlebars.compile(source);
+                    var blogData = template(data);
+                    $('#blog-data').html(blogData);
+                    $('#blog-data').trigger('create');
+                    dfd.resolve(data);
+
+                },
+                error: function(data){
+                    console.log(data);
+                }
+            });
+            return dfd.promise();
+        };
+
+        getBlogs().then(function(data){
+            $('#all-posts').on('click','li', function(e){                
+                localStorage.setItem('postData', JSON.stringify(data.posts[$(this).index()]));
+            });
+        });
+
+        
+    },
+    single: function() {
+        
+            var postDataStorage = localStorage.getItem('postData');
+            var source   = $("#single-template").html();
+            var template = Handlebars.compile(source);
+            var postData = template(JSON.parse(postDataStorage));    
+            $('#single-data').html(postData);
+
+    },
+
+    portfolio: function(){
+        $.ajax({
+            url: 'http://alexbachuk.com/?json=get_recent_posts&post_type=portfolio',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data){
+                var source   = $("#portfolio-template").html();
+                var template = Handlebars.compile(source);
+                var portfolioData = template(data);
+                $('#portfolio-data').html(portfolioData);
+                $('#portfolio-data').trigger('create');
+
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
     }
+
 };
