@@ -29,9 +29,6 @@ Handlebars.registerHelper("debug", function(optionalValue) {
 });
 
 
-
-
-
 var app = {
     // Application Constructor
     initialize: function() {
@@ -53,16 +50,35 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+			
         var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-
         console.log('Received Event: ' + id);
     },
 
+		index: function(){
+				$.ajax({
+				    url: 'https://ibwt.co.uk/Updates/Rates/BTC/USD/',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data){
+							alert(data);
+                var source   = $("#portfolio-template").html();
+                var template = Handlebars.compile(source);
+                var portfolioData = template(data);
+                $('#portfolio-data').html(portfolioData);
+                $('#portfolio-data').trigger('create');
+
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });			
+			},
 	
     rates: function(){
         function getRates() {
@@ -106,7 +122,23 @@ var app = {
     },
 
 		contact: function(){
-			
+				$.ajax({
+				    url: 'https://ibwt.co.uk/Updates/Rates/BTC/USD/',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data){
+							alert(data);
+                var source   = $("#portfolio-template").html();
+                var template = Handlebars.compile(source);
+                var portfolioData = template(data);
+                $('#portfolio-data').html(portfolioData);
+                $('#portfolio-data').trigger('create');
+
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });			
 			},
     portfolio: function(){
         $.ajax({

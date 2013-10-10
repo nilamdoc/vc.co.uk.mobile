@@ -14,6 +14,25 @@
 	<div id="home-header" data-role="header">
 		<h1><i class="icon-home icon-white"></i> In Bitcoin We Trust</h1>
 	</div><!-- /#header -->
+
+    <div id="portfolio-content" data-role="content">
+        
+        
+        <div id="portfolio-data"></div>
+
+
+        <script id="portfolio-template" type="text/x-handlebars-template">
+            
+            {{#each posts}}
+                <div class="portfolio-piece">
+
+                <img src="{{attachments.[0].url}}" />
+                <h4>{{title}}</h4>
+                </div>
+            {{/each}}
+            
+        </script>
+
 	<div id="home-content" data-role="content">
 		<a data-role="button" data-transition="slide" href="index.html">Home</a>
 		<a data-role="button" data-transition="slide" href="dashboard.html">Dashboard</a>
@@ -49,7 +68,7 @@
 					</div><!--text-left -->
 				</div><!--text-center -->
 			</div><!--home-content -->
-   
+
 	 <div id="footer" data-role="footer">
         <h3>
 			    <a href="contact.html">Contact us</a> - 
@@ -75,6 +94,7 @@
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
+						app.index();
         </script>
 	</div><!-- /#home-page -->				
 	</body>
