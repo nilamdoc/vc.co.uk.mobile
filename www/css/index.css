@@ -41,6 +41,9 @@ legend,button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
 .text-center {
     text-align: center;
 }
+.text-left {
+    text-align: left;
+}
 
 img {
     max-width: 100%;

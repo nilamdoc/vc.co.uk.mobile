@@ -107,7 +107,7 @@ var app = {
 
     portfolio: function(){
         $.ajax({
-            url: 'http://alexbachuk.com/?json=get_recent_posts&post_type=portfolio',
+            url: 'https://ibwt.co.uk/?json=get_recent_posts&post_type=portfolio',
             type: 'GET',
             dataType: 'json',
             success: function(data){
