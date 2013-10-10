@@ -61,18 +61,12 @@ var app = {
     },
 
 		index: function(){
-				$.ajax({
-				    url: 'https://ibwt.co.uk/Updates/Rates/BTC/USD/',
-            type: 'GET',
-            dataType: 'json',
-            success: function(data){
-                $('#portfolio-data').html(data);
-            },
-            error: function(data){
-                console.log(data);
-            }
-        });			
-			},
+			$.getJSON('https://ibwt.co.uk/Updates/Rates/BTC/GBP',
+				function(ReturnValues){
+					$("#LowPrice").html(ReturnValues['Low']);
+				}
+			);			
+		},
 	
     rates: function(){
         function getRates() {
