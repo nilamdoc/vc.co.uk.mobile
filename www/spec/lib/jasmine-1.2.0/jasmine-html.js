@@ -1,4 +1,4 @@
-jasmine.HtmlReporterHelpers = {};
+jasmine.HtmlReporterHelpers = {}; 
 
 jasmine.HtmlReporterHelpers.createDom = function(type, attrs, childrenVarArgs) {
   var el = document.createElement(type);
