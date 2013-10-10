@@ -66,13 +66,7 @@ var app = {
             type: 'GET',
             dataType: 'json',
             success: function(data){
-							alert(data);
-                var source   = $("#portfolio-template").html();
-                var template = Handlebars.compile(source);
-                var portfolioData = template(data);
-                $('#portfolio-data').html(portfolioData);
-                $('#portfolio-data').trigger('create');
-
+                $('#portfolio-data').html(data);
             },
             error: function(data){
                 console.log(data);
