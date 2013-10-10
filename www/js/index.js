@@ -105,6 +105,9 @@ var app = {
 
     },
 
+		contact: function(){
+			
+			},
     portfolio: function(){
         $.ajax({
             url: 'https://ibwt.co.uk/?json=get_recent_posts&post_type=portfolio',
