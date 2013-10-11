@@ -123,10 +123,10 @@ var app = {
 								html = html + '<td>'+element['username']+'</td>';
 								html = html + '<td>'+element['email']+'</td>';
 								html = html + '<td>'+element['firstname']+' '+element['lastname']+'</td>';								
-								html = html + '<td>'+element['BTC']+'</td>';																
-								html = html + '<td>'+element['GBP']+'</td>';																								
-								html = html + '<td>'+element['USD']+'</td>';																								
-								html = html + '<td>'+element['EUR']+'</td>';																								
+								html = html + '<td>'+Math.round(element['BTC']*10000000)/10000000+'</td>';																
+								html = html + '<td>'+Math.round(element['GBP']*1000)/1000+'</td>';																								
+								html = html + '<td>'+Math.round(element['USD']*1000)/1000+'</td>';																								
+								html = html + '<td>'+Math.round(element['EUR']*1000)/1000+'</td>';																								
 								html = html + '</tr>';
 							}
 								html = html + '</tbody></table>';
