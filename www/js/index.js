@@ -28,7 +28,7 @@ Handlebars.registerHelper("debug", function(optionalValue) {
   }
 });
 
-
+var domain = "https://vccouk/";
 var app = {
     // Application Constructor
     initialize: function() {
@@ -61,61 +61,52 @@ var app = {
     },
 
 		index: function(){
-			$.getJSON('https://ibwt.co.uk/Updates/Rates/BTC/GBP',
-				function(ReturnValues){
-					$("#LowPrice").html(ReturnValues['Low']);
-				}
-			);			
+				var  myURL = "https://ibwt.co.uk/mobile"
+        $.ajax({
+            url: 'http://query.yahooapis.com/v1/public/yql?q=select * from json where url="'+
+						myURL
+						+'"&format=json&callback=',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data){
+							$("#Users").html(data['query']['results']['json']['result']['users']);
+							$("#Online").html(data['query']['results']['json']['result']['online']);							
+							$("#Pending").html(data['query']['results']['json']['result']['online']);														
+							var length = data['query']['results']['json']['result']['DetailPendingOrders']['result'].length,
+							element = null,
+							html = "";
+							for (var i = 0; i < length; i++) {
+								element = data['query']['results']['json']['result']['DetailPendingOrders']['result'][i];
+
+								html = html + '<tr>';
+								html = html + '<td>'+element['_id']['Action']+'</td>';
+								html = html + '<td>'+element['_id']['FirstCurrency']+'</td>';
+								html = html + '<td>'+element['_id']['SecondCurrency']+'</td>';
+								html = html + '<td>'+element['Amount']+'</td>';
+								html = html + '<td>'+element['TotalAmount']+'</td>';
+								html = html + '<td>'+(element['TotalAmount']/element['Amount'])+'</td>';
+								html = html + '</tr>';
+
+
+								$("#DetailPendingOrders").html(html);								
+								// Do something with element i.
+							}
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
+
 		},
 	
     rates: function(){
-        function getRates() {
-            var dfd = $.Deferred();
-            $.ajax({
-                url: 'https://ibwt.co.uk/Updates/Rates/BTC/USD/',
-                type: 'GET',
-                dataType: 'json',
-                success: function(data){
-                    var source   = $("#blog-template").html();
-                    var template = Handlebars.compile(source);
-                    var blogData = template(data);
-                    $('#blog-data').html(blogData);
-                    $('#blog-data').trigger('create');
-                    dfd.resolve(data);
-
-                },
-                error: function(data){
-                    console.log(data);
-                }
-            });
-            return dfd.promise();
-        };
-
-        getBlogs().then(function(data){
-            $('#all-posts').on('click','li', function(e){                
-                localStorage.setItem('postData', JSON.stringify(data.posts[$(this).index()]));
-            });
-        });
-
-        
-    },
-    single: function() {
-        
-            var postDataStorage = localStorage.getItem('postData');
-            var source   = $("#single-template").html();
-            var template = Handlebars.compile(source);
-            var postData = template(JSON.parse(postDataStorage));    
-            $('#single-data').html(postData);
-
-    },
-
+		},
 		contact: function(){
 				$.ajax({
 				    url: 'https://ibwt.co.uk/Updates/Rates/BTC/USD/',
             type: 'GET',
             dataType: 'json',
             success: function(data){
-							alert(data);
                 var source   = $("#portfolio-template").html();
                 var template = Handlebars.compile(source);
                 var portfolioData = template(data);
@@ -145,6 +136,9 @@ var app = {
                 console.log(data);
             }
         });
-    }
+    },
+		
+		
+
 
 };

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>QUnit Test Suite</title>
+
+<script src="js/libs/jquery.js"></script>
+<script >
+				var  myURL = "https://ibwt.co.uk/Updates/Rates/BTC/GBP"
+        $.ajax({
+            url: 'http://query.yahooapis.com/v1/public/yql?q=select * from json where url="'+
+						myURL
+						+'"&format=json&callback=',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data){
+							$("#qunit-banner").html(data['query']['results']['json']['Low']);
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
+</script>
+</head>
+<body>
+<h2 id="qunit-banner"></h2>
+</body>
+</html>
