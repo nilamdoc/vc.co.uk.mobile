@@ -74,7 +74,8 @@ var app = {
 							$("#Pending").html(data['query']['results']['json']['result']['online']);														
 							var length = data['query']['results']['json']['result']['DetailPendingOrders']['result'].length,
 							element = null,
-							html = "";
+									
+							html = '<table class="table table-condensed table-bordered table-hover"><thead><tr><th>Action</th><th>First</th><th>Second</th><th>BTC</th><th>Amount</th><th>Price</th></tr></thead><tbody>';
 							for (var i = 0; i < length; i++) {
 								element = data['query']['results']['json']['result']['DetailPendingOrders']['result'][i];
 
@@ -86,11 +87,11 @@ var app = {
 								html = html + '<td>'+element['TotalAmount']+'</td>';
 								html = html + '<td>'+(element['TotalAmount']/element['Amount'])+'</td>';
 								html = html + '</tr>';
-
-
+							}
+								html = html + '</tbody></table>';
 								$("#DetailPendingOrders").html(html);								
 								// Do something with element i.
-							}
+							
             },
             error: function(data){
                 console.log(data);
