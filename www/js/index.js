@@ -71,7 +71,7 @@ var app = {
             success: function(data){
 							$("#Users").html(data['query']['results']['json']['result']['users']);
 							$("#Online").html(data['query']['results']['json']['result']['online']);							
-							$("#Pending").html(data['query']['results']['json']['result']['online']);														
+							$("#Pending").html(data['query']['results']['json']['result']['PendingOrders']);
 							var length = data['query']['results']['json']['result']['DetailPendingOrders']['result'].length,
 							element = null,
 									
