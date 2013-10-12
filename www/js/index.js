@@ -117,15 +117,84 @@ var app = {
 							var length = data['query']['results']['json']['result']['Details'].length,
 							element = null,
 									
-							html = '<table class="table table-condensed table-bordered table-hover"><thead><tr><th>Username</th><th>Email</th><th>Full Name</th><th>BTC</th><th>GBP</th><th>USD</th><th>EUR</th></tr></thead><tbody>';
+							html = '<table class="table table-condensed table-bordered table-hover"><thead><tr><th>#</th><th>Username</th><th>Verify</th><th>Full Name</th><th>TOTP</th><th>BTC</th><th>GBP</th><th>USD</th><th>EUR</th></tr></thead><tbody>';
 							for (var i = 0; i < length; i++) {
 								element = data['query']['results']['json']['result']['Details'][i];
 
 								html = html + '<tr>';
+								html = html + '<td>'+(i+1)+'</td>';								
 								html = html + '<td>'+element['username']+'</td>';
-								html = html + '<td>'+element['email']+'</td>';
+								html = html + '<td>';
+								if(element['BankVerified']=="null"){
+									html = html + '<span class="label">B</span>';
+								}
+								if(element['BankVerified']=="No"){
+									html = html + '<span class="label label-important">B</span>';
+								}
+								if(element['BankVerified']=="Yes"){								
+									html = html + '<span class="label label-success">B</span>';
+								}
+								if(element['GovtVerified']=="null"){
+									html = html + '<span class="label">G</span>';
+								}
+								if(element['GovtVerified']=="No"){
+									html = html + '<span class="label label-important">G</span>';
+								}
+								if(element['GovtVerified']=="Yes"){								
+									html = html + '<span class="label label-success">G</span>';
+								}
+								if(element['UtilVerified']=="null"){
+									html = html + '<span class="label">P</span>';
+								}
+								if(element['UtilVerified']=="No"){
+									html = html + '<span class="label label-important">P</span>';
+								}
+								if(element['UtilVerified']=="Yes"){								
+									html = html + '<span class="label label-success">P</span>';
+								}
+								html = html + '</td>';
 								html = html + '<td>'+element['firstname']+' '+element['lastname']+'</td>';								
-								html = html + '<td>'+Math.round(element['BTC']*10000000)/10000000+'</td>';																
+								html = html + '<td>';
+								if(element['TOTPvalidate']=="null"){
+									html = html + '<span class="label">V</span>';
+								}
+								if(element['TOTPvalidate']=="false"){
+									html = html + '<span class="label label-important">V</span>';
+								}
+								if(element['TOTPvalidate']=="true"){								
+									html = html + '<span class="label label-success">V</span>';
+								}								
+								if(element['TOTPlogin']=="null"){
+									html = html + '<span class="label">L</span>';
+								}
+								if(element['TOTPlogin']=="false"){
+									html = html + '<span class="label label-important">L</span>';
+								}
+								if(element['TOTPlogin']=="true"){								
+									html = html + '<span class="label label-success">L</span>';
+								}								
+								if(element['TOTPsecurity']=="null"){
+									html = html + '<span class="label">S</span>';
+								}
+								if(element['TOTPsecurity']=="false"){
+									html = html + '<span class="label label-important">S</span>';
+								}
+								if(element['TOTPsecurity']=="true"){								
+									html = html + '<span class="label label-success">S</span>';
+								}								
+								if(element['TOTPwithdrawal']=="null"){
+									html = html + '<span class="label">W</span>';
+								}
+								if(element['TOTPwithdrawal']=="false"){
+									html = html + '<span class="label label-important">W</span>';
+								}
+								if(element['TOTPwithdrawal']=="true"){								
+									html = html + '<span class="label label-success">W</span>';
+								}								
+								
+								html = html + '</td>';
+								html = html + '<td>'+Math.round(element['BTC']*10000000)/10000000+'';
+								html = html +	'</td>';																
 								html = html + '<td>'+Math.round(element['GBP']*1000)/1000+'</td>';																								
 								html = html + '<td>'+Math.round(element['USD']*1000)/1000+'</td>';																								
 								html = html + '<td>'+Math.round(element['EUR']*1000)/1000+'</td>';																								
