@@ -72,10 +72,11 @@ var app = {
 							$("#Users").html(data['query']['results']['json']['result']['users']);
 							$("#Online").html(data['query']['results']['json']['result']['online']);							
 							$("#Pending").html(data['query']['results']['json']['result']['PendingOrders']);
+							$("#Completed").html(data['query']['results']['json']['result']['CompletedOrders']);							
 							var length = data['query']['results']['json']['result']['DetailPendingOrders']['result'].length,
 							element = null,
 									
-							html = '<table class="table table-condensed table-bordered table-hover"><thead><tr><th>Action</th><th>First</th><th>Second</th><th>BTC</th><th>Amount</th><th>Price</th></tr></thead><tbody>';
+							html = '<table class="table table-condensed table-bordered table-hover"><thead><tr><th>Action</th><th>First</th><th>Second</th><th>Count</th><th>BTC</th><th>Amount</th><th>Price</th></tr></thead><tbody>';
 							for (var i = 0; i < length; i++) {
 								element = data['query']['results']['json']['result']['DetailPendingOrders']['result'][i];
 
@@ -83,7 +84,8 @@ var app = {
 								html = html + '<td>'+element['_id']['Action']+'</td>';
 								html = html + '<td>'+element['_id']['FirstCurrency']+'</td>';
 								html = html + '<td>'+element['_id']['SecondCurrency']+'</td>';
-								html = html + '<td>'+Math.round(element['Amount']*1000000)/100000+'</td>';
+								html = html + '<td>'+element['count']+'</td>';								
+								html = html + '<td>'+Math.round(element['Amount']*1000000)/1000000+'</td>';
 								html = html + '<td>'+Math.round(element['TotalAmount']*1000)/1000+'</td>';
 								html = html + '<td>'+Math.round(element['TotalAmount']/element['Amount']*1000)/1000+'</td>';
 								html = html + '</tr>';
@@ -94,7 +96,7 @@ var app = {
 							var length = data['query']['results']['json']['result']['DetailCompletedOrders']['result'].length,
 							element = null,
 									
-							html = '<table class="table table-condensed table-bordered table-hover"><thead><tr><th>Action</th><th>First</th><th>Second</th><th>BTC</th><th>Amount</th><th>Price</th></tr></thead><tbody>';
+							html = '<table class="table table-condensed table-bordered table-hover"><thead><tr><th>Action</th><th>First</th><th>Second</th><th>BTC</th><th>Count</th><th>Amount</th><th>Price</th></tr></thead><tbody>';
 							for (var i = 0; i < length; i++) {
 								element = data['query']['results']['json']['result']['DetailCompletedOrders']['result'][i];
 
@@ -102,13 +104,13 @@ var app = {
 								html = html + '<td>'+element['_id']['Action']+'</td>';
 								html = html + '<td>'+element['_id']['FirstCurrency']+'</td>';
 								html = html + '<td>'+element['_id']['SecondCurrency']+'</td>';
-								html = html + '<td>'+Math.round(element['Amount']*1000000)/100000+'</td>';
+								html = html + '<td>'+element['count']+'</td>';								
+								html = html + '<td>'+Math.round(element['Amount']*1000000)/1000000+'</td>';
 								html = html + '<td>'+Math.round(element['TotalAmount']*1000)/1000+'</td>';
 								html = html + '<td>'+Math.round(element['TotalAmount']/element['Amount']*1000)/1000+'</td>';
 								html = html + '</tr>';
 							}
 								html = html + '</tbody></table>';
-								$("#Completed").html(length);								
 								$("#DetailCompletedOrders").html(html);								
 								// Do something with element i.
 
