@@ -115,7 +115,7 @@ var app = {
 								// Do something with element i.
 
 							var length = data['query']['results']['json']['result']['Details'].length,
-							element = null,
+							element = null,BTC=0,GBP=0,USD=0,EUR=0,
 									
 							html = '<table class="table table-condensed table-bordered table-hover"><thead><tr><th>#</th><th>Username</th><th>Verify</th><th>Full Name</th><th>TOTP</th><th>BTC</th><th>GBP</th><th>USD</th><th>EUR</th></tr></thead><tbody>';
 							for (var i = 0; i < length; i++) {
@@ -192,18 +192,39 @@ var app = {
 									html = html + '<span class="label label-success">W</span>';
 								}								
 								
+								BTC = BTC + Math.round(element['BTC']*10000000)/10000000;
+								BTC = BTC + Math.round(element['Sell']['BTC-GBP']['Amount']*10000000)/10000000;
+								BTC = BTC + Math.round(element['Sell']['BTC-EUR']['Amount']*10000000)/10000000;
+								BTC = BTC + Math.round(element['Sell']['BTC-USD']['Amount']*10000000)/10000000;
+								GBP = GBP + Math.round(element['GBP']*1000)/1000;
+								GBP = GBP + Math.round(element['Buy']['BTC-GBP']['TotalAmount']*1000)/1000;
+								USD = USD + Math.round(element['USD']*1000)/1000;
+								USD = USD + Math.round(element['Buy']['BTC-USD']['TotalAmount']*1000)/1000;
+								EUR = EUR + Math.round(element['EUR']*1000)/1000;
+								EUR = EUR + Math.round(element['Buy']['BTC-EUR']['TotalAmount']*1000)/1000;
+
+
+
 								html = html + '</td>';
-								html = html + '<td>'+Math.round(element['BTC']*10000000)/10000000+'';
+								html = html + '<td>'+(Math.round(element['BTC']*10000000)/10000000).toFixed(10)+'<br>';
+								html = html + (Math.round(element['Sell']['BTC-GBP']['Amount']*10000000)/10000000+Math.round(element['Sell']['BTC-USD']['Amount']*10000000)/10000000+Math.round(element['Sell']['BTC-EUR']['Amount']*10000000)/10000000).toFixed(10);
 								html = html +	'</td>';																
-								html = html + '<td>'+Math.round(element['GBP']*1000)/1000+'</td>';																								
-								html = html + '<td>'+Math.round(element['USD']*1000)/1000+'</td>';																								
-								html = html + '<td>'+Math.round(element['EUR']*1000)/1000+'</td>';																								
+								html = html + '<td>'+(Math.round(element['GBP']*1000)/1000).toFixed(4)+'<br>';
+								html = html + (Math.round(element['Buy']['BTC-GBP']['TotalAmount']*1000)/1000).toFixed(4)+'</td>';																								
+								html = html + '<td>'+(Math.round(element['USD']*1000)/1000).toFixed(4)+'<br>';
+								html = html + (Math.round(element['Buy']['BTC-USD']['TotalAmount']*1000)/1000).toFixed(4)+'</td>';																								
+								html = html + '<td>'+(Math.round(element['EUR']*1000)/1000).toFixed(4)+'<br>';
+								html = html + (Math.round(element['Buy']['BTC-EUR']['TotalAmount']*1000)/1000).toFixed(4)+'</td>';																								
 								html = html + '</tr>';
 							}
 								html = html + '</tbody></table>';
 								$("#UsersCount").html(length);								
 								$("#UsersDetails").html(html);								
 
+						$("#BTC").html(BTC);
+						$("#GBP").html(GBP);
+						$("#EUR").html(EUR);
+						$("#USD").html(USD);						
 
             },
             error: function(data){
