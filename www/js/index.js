@@ -60,8 +60,25 @@ var app = {
         console.log('Received Event: ' + id);
     },
 
+		user: function(){
+			var user = getURLParameter('user');
+			var  myURL = "https://ibwt.co.uk/user/"	+ user;
+		  $.ajax({
+            url: 'http://query.yahooapis.com/v1/public/yql?q=select * from json where url="'+
+						myURL
+						+'"&format=json&callback=',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data){
+            },
+            error: function(data){
+                console.log(data);
+            }
+        });
+						
+			},
 		index: function(){
-				var  myURL = "https://ibwt.co.uk/mobile"
+				var  myURL = "https://ibwt.co.uk/mobile";
         $.ajax({
             url: 'http://query.yahooapis.com/v1/public/yql?q=select * from json where url="'+
 						myURL
@@ -123,7 +140,7 @@ var app = {
 
 								html = html + '<tr>';
 								html = html + '<td>'+(i+1)+'</td>';								
-								html = html + '<td>'+element['username']+'</td>';
+								html = html + '<td><a href="user.html?user='+element['username']+'">'+element['username']+'</a></td>';
 								html = html + '<td>';
 								if(element['BankVerified']=="null"){
 									html = html + '<span class="label">B</span>';
@@ -234,46 +251,9 @@ var app = {
 
 		},
 	
-    rates: function(){
-		},
-		contact: function(){
-				$.ajax({
-				    url: 'https://ibwt.co.uk/Updates/Rates/BTC/USD/',
-            type: 'GET',
-            dataType: 'json',
-            success: function(data){
-                var source   = $("#portfolio-template").html();
-                var template = Handlebars.compile(source);
-                var portfolioData = template(data);
-                $('#portfolio-data').html(portfolioData);
-                $('#portfolio-data').trigger('create');
-
-            },
-            error: function(data){
-                console.log(data);
-            }
-        });			
-			},
-    portfolio: function(){
-        $.ajax({
-            url: 'https://ibwt.co.uk/?json=get_recent_posts&post_type=portfolio',
-            type: 'GET',
-            dataType: 'json',
-            success: function(data){
-                var source   = $("#portfolio-template").html();
-                var template = Handlebars.compile(source);
-                var portfolioData = template(data);
-                $('#portfolio-data').html(portfolioData);
-                $('#portfolio-data').trigger('create');
-
-            },
-            error: function(data){
-                console.log(data);
-            }
-        });
-    },
-		
-		
-
-
+ 	
 };
+
+function getURLParameter(name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+}
